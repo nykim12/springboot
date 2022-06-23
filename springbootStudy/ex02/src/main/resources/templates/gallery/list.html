@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>Insert title here</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" th:href="@{/css/list.css}"/>
-    <title>Title</title>
 </head>
 <body>
 
 <a th:href="@{/gallery/savePage}">새글작성</a>
+
 <hr>
+
 <table>
     <thead>
     <tr>
@@ -23,14 +25,28 @@
     </tr>
     </thead>
     <tbody>
-
+    <!-- Variable Expression : ${...} -->
     <!-- <tr th:eath="변수:배열"> -->
     <!-- <td th:text="${변수값}"> -->
     <tr th:each="gallery,rowStat:${galleries}">
         <td th:text="${beginNo - rowStat.index}"></td>
         <td><a th:href="@{/gallery/detail(galleryNo=${gallery.galleryNo})}" th:text="${gallery.title}"></a></td>
+        <td th:text="${gallery.writer}"></td>
+        <td th:text="${gallery.hit}"></td>
+        <td th:text="${#dates.format(gallery.created, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <!--
+            Calendar 타입 : ${#calendars.format(날짜, '형식')}
+            Date 타입 : ${#dates.format(날짜, '형식')}
+            String 타입 : ${#temporals.format(날짜, '형식')}
+            '형식'은 SimpleDateFormat의 pattern 작성법을 따른다.
+        -->
     </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" th:text="${paging}"></td>
+        </tr>
+    </tfoot>
 </table>
 
 </body>
