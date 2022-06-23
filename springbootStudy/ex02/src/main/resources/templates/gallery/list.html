@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" th:href="@{/css/list.css}"/>
+    <title>Title</title>
+</head>
+<body>
+
+<a th:href="@{/gallery/savePage}">새글작성</a>
+<hr>
+<table>
+    <thead>
+    <tr>
+        <td>번호</td>
+        <td>제목</td>
+        <td>작성자</td>
+        <td>조회수</td>
+        <td>작성일</td>
+    </tr>
+    </thead>
+    <tbody>
+
+    <!-- <tr th:eath="변수:배열"> -->
+    <!-- <td th:text="${변수값}"> -->
+    <tr th:each="gallery,rowStat:${galleries}">
+        <td th:text="${beginNo - rowStat.index}"></td>
+        <td><a th:href="@{/gallery/detail(galleryNo=${gallery.galleryNo})}" th:text="${gallery.title}"></a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
